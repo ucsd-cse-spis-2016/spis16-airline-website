@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Lookup by Airline{% endblock %}
+
+{% block content %}
+
+<form action="/airline_result">
+ Airport:<br>
+  <input type="text" name="airport" value="SW">
+  <input type="submit" value="Submit">
+</form>
+
+<p>Enter a two-letter airline code, then click Submit</p>
+
+{% endblock %}
