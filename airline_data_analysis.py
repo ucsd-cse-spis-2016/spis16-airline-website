@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+# import airline data from https://think.cs.vt.edu/corgis/
 import airlines
 
 def airline_to_airports(data,airline):
@@ -23,6 +24,13 @@ def airport_dict(data):
         result[airport_code] = a['airport']['name']
     return result
 
+def airline_dict(data):
+    result = {}
+    for a in data:
+        airline_code = a['carrier']['code']
+        result[airline_code] = a['carrier']['name']
+    return result
+
 def iterate_airports(airport_dict,fn):
     ''' fn is a function of the form fn(code,name)'''
     for code in airport_dict.keys():
@@ -37,7 +45,8 @@ def printAirportNicely(code,name):
 
 
 if __name__=="__main__":
-    data = airlines.get_reports(test=False)
+    # data = airlines.get_reports(test=False) # big data
+    sdata = airlines.get_reports(test=True) # small data 
     print ("""
 Try:
    sdata = airlines.get_reports(test=True) # small data 
@@ -50,6 +59,7 @@ Try:
    data[0].keys()
    data[0]['some_key']
    airport_dict(data)
+   airline_dict(data)
    iterate_airports(airport_dict(data),printAirport)
    iterate_airports(airport_dict(data),printAirportNicely)
    """)
