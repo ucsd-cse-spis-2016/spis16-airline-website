@@ -20,13 +20,11 @@ def renderAirline():
 
 @app.route('/airline_result')
 def renderAirlineResult():
-    print "We have the correct route"
     try:
         # TODO: Insert some code that does something with airline
         airline = request.args['airline']
         answer = computeResultFromAirline(airline)
-        print "airline=" + airline
-        
+
         return render_template('airline_result.html',airline=airline,result=answer)
         # return "renderAirlineResult stub, result=" + result
     except ValueError:
@@ -34,20 +32,32 @@ def renderAirlineResult():
 
 @app.route('/airport_result')
 def renderAirportResult():
-   print "We are in the stub for render airport result"
-   return "stub"
+    try:
+        # TODO: Insert some code that does something with airline
+        airport = request.args['airport']
+        answer = computeResultFromAirport(airport)
+        
+        return render_template('airport_result.html',airport=airport,answer=answer)
+        # return "renderAirlineResult stub, result=" + result
+    except ValueError:
+        return "Sorry: something went wrong."
 
 def computeResultFromAirline(airline):
     result = ""
-    list_of_airline = airlines.get_reports()
+    list_of_airline = airlines.get_reports(test=False)
     for a in list_of_airline:
         if a['carrier']['code']==airline:
             result += a['airport']['code']+" "
     return result
 
-def ftoc(ftemp):
-   return (ftemp-32.0)*(5.0/9.0)
-
+def computeResultFromAirport(airport):
+    result = []
+    list_of_airline = airlines.get_reports(test=False)
+    for a in list_of_airline:
+        if a['airport']['code']==airport:
+            result.append(a)
+    print a
+    return result
 
     
 if __name__=="__main__":

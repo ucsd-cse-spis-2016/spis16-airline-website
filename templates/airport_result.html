@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}Lookup by Airport{% endblock %}
+
+{% block content %}
+
+<p>We looked up airport: {{ airport }}</p>
+<p>Here are the results </p>
+
+<ul>
+{% for a in answer %}
+  <li><code>{{ a }}<code></li>
+{% endfor %}
+</ul>
+
+
+
+{% endblock %}
