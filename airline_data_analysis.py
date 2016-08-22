@@ -43,6 +43,27 @@ def printAirportNicely(code,name):
     splitName = name.split(':')
     print (code.ljust(5),splitName[0].ljust(20),splitName[1])
 
+def percentDelayed(oneReport):
+    ''' given one report from data, compute % of flights delayed '''
+    return 100.0 * float(oneReport['statistics']['flights']['delayed'])/float(oneReport['statistics']['flights']['total'])
+
+def getData():
+    return airlines.get_reports(test=False) # big data
+
+def dataForAirport(data,airport):
+    result = []
+    for d in data:
+      if d['airport']['code']==airport:
+        result.append(d)
+    return result
+
+def delayDict(oneReport):
+    return { 'airport_code' : oneReport['airport']['code'],
+             'airline_code' : oneReport['carrier']['code'],
+             'percentDelayed' : percentDelayed(oneReport),
+             'delayed' : oneReport['statistics']['flights']['delayed'],
+             'total' : oneReport['statistics']['flights']['total'],
+             'yyyy_m' : oneReport['time']['label']}
 
 if __name__=="__main__":
     # data = airlines.get_reports(test=False) # big data
